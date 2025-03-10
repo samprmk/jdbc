@@ -1,13 +1,44 @@
 <html>
-<head>
-    <title>Login Page</title>
-</head>
+<head><title>CRUD Operations</title></head>
 <body>
-    <h2>Login Form</h2>
-    <form action="LoginServlet" method="post">
-        Username: <input type="text" name="username" required><br><br>
-        Password: <input type="password" name="password" required><br><br>
-        <input type="submit" value="Login">
-    </form>
+ <h2>CRUD Operations</h2>
+ <form action="crud.jsp" method="post">
+ <input type="hidden" name="action" value="insert">
+ Name: <input type="text" name="name" required>
+ Email: <input type="text" name="email" required>
+ Phone: <input type="text" name="phone" required>
+ <input type="submit" value="Add User">
+ </form>
+
+ <form action="crud.jsp" method="post">
+ <input type="hidden" name="action" value="update">
+ ID: <input type="number" name="id" required>
+ New Name: <input type="text" name="name" required>
+ New Email: <input type="text" name="email" required>
+ New Phone: <input type="text" name="phone" required>
+ <input type="submit" value="Update User">
+ </form>
+
+ <form action="crud.jsp" method="post">
+ <input type="hidden" name="action" value="delete">
+ ID: <input type="number" name="id" required>
+ <input type="submit" value="Delete User">
+ </form>
+
+ <p><%= message %></p>
+ <h3>Users List:</h3>
+ <table border="1">
+ <tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th></tr>
+ <% while (rs != null && rs.next()) { %>
+ <tr><td><%= rs.getInt("id") %></td><td><%= rs.getString("name")
+%></td><td><%= rs.getString("email") %></td><td><%=
+rs.getString("phone") %></td></tr>
+ <% } %>
+ </table>
 </body>
 </html>
+<%
+ if (rs != null) rs.close();
+ if (stmt != null) stmt.close();
+ if (conn != null) conn.close();
+%>
